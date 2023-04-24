@@ -1,16 +1,33 @@
 from django.shortcuts import render
+from .forms import CategoryCreateForm, MenuCreateForm
 
 # Create your views here.
 
 #Views for menu page
 def menu_index(request):
     return render(request, 'menus/index.html')
+
 def menu_add(request):
-    return render(request, 'menus/create.html')
+    menu_form = MenuCreateForm()
+    context={
+        "form":menu_form,
+        "title":"Menu || Create"
+    }
+    return render(request, 'menus/create.html', context)
+
 def menu_edit(request):
     return render(request, 'menus/edit.html')
 def menu_detail(request):
     return render(request, 'menus/show.html')
+
+#Create Category
+def category_create(request):
+    form=CategoryCreateForm()
+    context={
+        "form":form,
+        "title":"Category || Create"
+    }
+    return render(request, "menus/add-category.html", context)
 
 # Views for order page
 def order_index(request):
