@@ -8,7 +8,8 @@ Menu || Create
 <div class="container-fluid">
     <h1>{{ title }}</h1><hr>
     <div class="card p-5">
-        <form action="#" method="post">
+        <form action="{% url 'menu-add' %}" method="post">
+            {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" class="btn btn-sm btn-primary" value="Add Menu Item">
         </form>
