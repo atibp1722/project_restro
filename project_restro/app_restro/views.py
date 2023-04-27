@@ -71,7 +71,7 @@ def menu_detail(request, id):
 def menu_delete(request, id):
     data=MenuModel.objects.get(id=id)
     data.delete()
-    return (redirect, 'menu-list')
+    return redirect('menu-list')
 
 #Create Category
 def category_create(request):
