@@ -43,16 +43,25 @@ def menu_add(request):
 
 def menu_edit(request, id):
     data=MenuModel.objects.get(id=id)
-    context={"data":data}
+    categories=Category.objects.all()
+    context={"data":data, 
+             "categories":categories
+            }
     return render(request, 'menus/edit.html', context)
 
 def menu_update(request):
     if request.method=="POST":
-        data=MenuCreateForm(request.POST)
-        if data.is_valid():
-            data.save()
-            return redirect("menu-list")
-    return redirect("menu-list")
+        id = request.POST.get('category_id')
+        category_id=Category.objects.get(id=id)
+        data=MenuModel.objects.get(id=request.POST.get('id'))
+        data.menu_title=request.POST.get('menu_title')
+        data.menu_desc=request.POST.get('menu_desc')
+        data.menu_ingredient=request.POST.get('menu_ingredient')
+        data.menu_price=request.POST.get('menu_price')
+        data.category_id=category_id
+        data.save()
+
+        return redirect("menu-list")
 
 def menu_detail(request, id):
     data=MenuModel.objects.get(id=id)

@@ -7,7 +7,7 @@ Menu || Index
 {% block content %}
 <div class="container-fluid">
     <h1>This is menu index page</h1><hr>
-
+    <a href="{% url 'menu-add' %}" class="btn btn-success col-12 mb-3">Add New Menu Item</a>
     <div class="card p-5">
         <table class="table table-hover">
             <thead>
@@ -28,9 +28,9 @@ Menu || Index
                     <td>{{ val.menu_desc }}</td>
                     <td>{{ val.menu_ingredient }}</td>
                     <td>{{ val.menu_price }}</td>
-                    <td><a href="{% url 'menu-edit' val.id %}">Edit</a></td>
-                    <td><a href="{% url 'menu-show' val.id %}">View</a></td>
-                    <td><a href="{% url 'menu-delete' val.id %}">Delete</a></td>
+                    <td><a href="{% url 'menu-edit' val.id %}" class="link-success">Edit</a></td>
+                    <td><a href="{% url 'menu-show' val.id %}" class="link-info">View</a></td>
+                    <td><a href="{% url 'menu-delete' val.id %}" class="link-danger">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
