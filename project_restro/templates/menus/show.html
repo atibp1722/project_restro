@@ -6,6 +6,20 @@ Menu || Show
 
 {% block content %}
 <div class="container-fluid">
-    <h1>This is menu DISPLAY page</h1>
+    <h1>This is menu DISPLAY page</h1><hr>
+    <div class="card p-5">
+        <a href="{% url 'menu-list' %}" class="btn btn-primary col-12 mb-3">Back</a>
+        <div class="card">
+            <div class="card header">
+                <h1>{{ data.menu_title }}</h1>
+            </div>
+            <div class="card body">
+                <h3>{{ data.category_id.category_name }}</h3>
+                <h3>{{ data.menu_desc }}</h3>
+                <h3>{{ data.menu_ingredient }}</h3>
+                <h3>{{ data.menu_price }}</h3>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

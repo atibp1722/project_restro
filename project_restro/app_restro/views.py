@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import CategoryCreateForm, MenuCreateForm
 from .models import Category, MenuModel
 
@@ -6,7 +6,9 @@ from .models import Category, MenuModel
 
 #Views for menu page
 def menu_index(request):
-    return render(request, 'menus/index.html')
+    data=MenuModel.objects.all()
+    context={"data":data}
+    return render(request, 'menus/index.html',context)
 
 def menu_add(request):
     menu_form = MenuCreateForm()
@@ -26,23 +28,41 @@ def menu_add(request):
         data.save()
 
         #pass and save data using argumented constructor
-        menu_title=request.POST.get('menu_title')
-        menu_desc=request.POST.get('menu_desc')
-        menu_ingredient=request.POST.get('menu_ingredient')
-        menu_price=request.POST.get('menu_price')
-        data=MenuModel(menu_title=menu_title, menu_desc=menu_desc, menu_ingredient=menu_ingredient, menu_price=menu_price)
-        data.save()
+        # menu_title=request.POST.get('menu_title')
+        # menu_desc=request.POST.get('menu_desc')
+        # menu_ingredient=request.POST.get('menu_ingredient')
+        # menu_price=request.POST.get('menu_price')
+        # data=MenuModel(menu_title=menu_title, menu_desc=menu_desc, menu_ingredient=menu_ingredient, menu_price=menu_price)
+        # data.save()
 
-        #pass and save directly from form
+        #pass and save directly from form object
+        # data=MenuCreateForm(request.POST)
+        # if data.is_valid():
+        #     data.save()
+    return render(request, 'menus/create.html', context)
+
+def menu_edit(request, id):
+    data=MenuModel.objects.get(id=id)
+    context={"data":data}
+    return render(request, 'menus/edit.html', context)
+
+def menu_update(request):
+    if request.method=="POST":
         data=MenuCreateForm(request.POST)
         if data.is_valid():
             data.save()
-    return render(request, 'menus/create.html', context)
+            return redirect("menu-list")
+    return redirect("menu-list")
 
-def menu_edit(request):
-    return render(request, 'menus/edit.html')
-def menu_detail(request):
-    return render(request, 'menus/show.html')
+def menu_detail(request, id):
+    data=MenuModel.objects.get(id=id)
+    context={"data":data}
+    return render(request, 'menus/show.html', context)
+
+def menu_delete(request, id):
+    data=MenuModel.objects.get(id=id)
+    data.delete()
+    return (redirect, 'menu-list')
 
 #Create Category
 def category_create(request):
