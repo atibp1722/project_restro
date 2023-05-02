@@ -6,7 +6,8 @@ Menu || Index
 
 {% block content %}
 <div class="container-fluid">
-    <h1>This is menu index page</h1><hr>
+    {% include 'partials/_messages.html' %}
+    <h1>Menu index page</h1><hr>
     <a href="{% url 'menu-add' %}" class="btn btn-success col-12 mb-3">Add New Menu Item</a>
     <div class="card p-5">
         <table class="table table-hover">

@@ -13,6 +13,7 @@
   <body>
     
     <div class="container p-3">
+      {% include 'partials/_messages.html' %}
         <div class="card p-3">
             <h1 style="text-align: center;">Customer Login | Login To Your Account</h1><hr>
             <form action="{% url 'login' %}" method="post">

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib import messages
 
 # Create your views here.
 class RegistrationView(View):
@@ -20,7 +21,7 @@ class RegistrationView(View):
         user.is_staff=False
         user.is_active=False
         user.save()
-
+        messages.success(request, 'Registration Successful')
         return redirect("register")
     
 class LoginView(View):
@@ -33,6 +34,8 @@ class LoginView(View):
         user=authenticate(request, username=username, password=password)
         if user is not None:
             login(request,user)
+            messages.success(request, 'Login Succees!')
             return redirect("menu-list")
         else:
+            messages.error(request, 'Login Failed!')
             return redirect("login")
