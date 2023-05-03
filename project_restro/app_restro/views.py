@@ -23,6 +23,7 @@ def menu_add(request):
         data.menu_title=request.POST.get('menu_title')
         data.menu_desc=request.POST.get('menu_desc')
         data.menu_ingredient=request.POST.get('menu_ingredient')
+        data.menu_img=request.FILES.get('menu_img')
         data.menu_price=request.POST.get('menu_price')
         data.category_id=category_id
         data.save()
@@ -57,6 +58,7 @@ def menu_update(request):
         data.menu_title=request.POST.get('menu_title')
         data.menu_desc=request.POST.get('menu_desc')
         data.menu_ingredient=request.POST.get('menu_ingredient')
+        data.menu_img=request.FILES.get('menu_img')
         data.menu_price=request.POST.get('menu_price')
         data.category_id=category_id
         data.save()
