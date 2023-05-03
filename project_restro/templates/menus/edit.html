@@ -9,7 +9,7 @@ Menu || Edit
     <h1>This is menu EDIT page</h1>
     <div class="card p-5">
         <a href="{% url 'menu-list' %}" class="btn btn-danger col-12 mb-3">Back</a>
-        <form action="{% url 'menu-update' %}" method="post">
+        <form action="{% url 'menu-update' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <input type="hidden" name="id" value="{{data.id}}">
             <div class="form-group mb-3">
