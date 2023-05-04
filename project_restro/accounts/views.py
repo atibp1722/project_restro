@@ -24,13 +24,12 @@ class RegistrationView(View):
         user.is_active=True
         user.save()
 
-        if user is True:
-            send_mail(
-                'Account creation',
-                'Your account has now been created',
-                'gmail.com',
-                [user.email]
-            )
+        send_mail(
+            'Account creation',
+            'Your account has now been created',
+            'gmail.com',
+            [user.email]
+        )
 
         messages.success(request, 'Registration Successful.')
         return redirect("register")
