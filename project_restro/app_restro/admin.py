@@ -13,3 +13,6 @@ class AdminCategory(admin.ModelAdmin):
 
 admin.site.register(Category, AdminCategory)
 admin.site.register(MenuModel, AdminMenu)
+
+admin.site.index_title= "Restaurant Management Suite"
+admin.site.site_header="Admin Panel"

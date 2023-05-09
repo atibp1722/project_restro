@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from .forms import CategoryCreateForm, MenuCreateForm
 from .models import Category, MenuModel
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 #Views for menu page
+@login_required(login_url='/authentication/login')
 def menu_index(request):
     data=MenuModel.objects.all()
     context={"data":data}
