@@ -12,6 +12,7 @@ def menu_index(request):
     context={"data":data}
     return render(request, 'menus/index.html',context)
 
+@login_required(login_url='/authentication/login')
 def menu_add(request):
     menu_form = MenuCreateForm()
     context={
@@ -44,6 +45,7 @@ def menu_add(request):
         #     data.save()
     return render(request, 'menus/create.html', context)
 
+@login_required(login_url='/authentication/login')
 def menu_edit(request, id):
     data=MenuModel.objects.get(id=id)
     categories=Category.objects.all()
@@ -52,6 +54,7 @@ def menu_edit(request, id):
             }
     return render(request, 'menus/edit.html', context)
 
+@login_required(login_url='/authentication/login')
 def menu_update(request):
     if request.method=="POST":
         id = request.POST.get('category_id')
@@ -67,11 +70,13 @@ def menu_update(request):
 
         return redirect("menu-list")
 
+@login_required(login_url='/authentication/login')
 def menu_detail(request, id):
     data=MenuModel.objects.get(id=id)
     context={"data":data}
     return render(request, 'menus/show.html', context)
 
+@login_required(login_url='/authentication/login')
 def menu_delete(request, id):
     data=MenuModel.objects.get(id=id)
     data.delete()
