@@ -9,9 +9,13 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/authentication/login')
 def menu_index(request):
     data=MenuModel.objects.all()
-    context={"data":data}
+    categories=Category.objects.all()
+    context={"data":data, "categories":categories}
     if request.method=="POST":
-        filter_list=MenuModel.objects.filter(id=request.POST.get('id'))
+        if request.POST.get('id') is not None:
+            filter_list=MenuModel.objects.filter(id=request.POST.get('id'))
+        elif request.POST.get('category_id') is not None:
+            filter_list=MenuModel.objects.filter(category_id=request.POST.get('category_id'))
         context.update({"data":filter_list})
     return render(request, 'menus/index.html',context)
 

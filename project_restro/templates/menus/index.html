@@ -53,6 +53,17 @@ Menu || Index
                     <input type="submit" value="{{ val.menu_title }}" class="btn btn-sm btn-success mb-2">
                 </form>
                 {% endfor %}
+                <hr>
+                <h5>Filter by Category</h5>
+                <hr>
+                <a href="{% url 'menu-list' %}" class="btn btn-sm btn-danger mb-3">Clear</a>
+                {% for val in categories %}
+                <form action="{% url 'menu-list' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="category_id" value="{{ val.id }}">
+                    <input type="submit" value="{{ val.category_name }}" class="btn btn-sm btn-success mb-2">
+                </form>
+                {% endfor %}
             </div>
         </div>
     </div>
