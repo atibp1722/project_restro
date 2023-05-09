@@ -45,6 +45,7 @@ Menu || Index
             <div class="col-md-2">
                 <h5>Filter by Menu Item</h5>
                 <hr>
+                <a href="{% url 'menu-list' %}" class="btn btn-sm btn-danger mb-3">Clear</a>
                 {% for val in data %}
                 <form action="{% url 'menu-list' %}" method="post">
                     {% csrf_token %}

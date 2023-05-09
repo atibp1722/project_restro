@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 def menu_index(request):
     data=MenuModel.objects.all()
     context={"data":data}
+    if request.method=="POST":
+        filter_list=MenuModel.objects.filter(id=request.POST.get('id'))
+        context.update({"data":filter_list})
     return render(request, 'menus/index.html',context)
 
 @login_required(login_url='/authentication/login')
