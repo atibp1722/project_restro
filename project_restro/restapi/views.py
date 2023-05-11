@@ -21,9 +21,59 @@ class CategoryApiIdView(APIView):
     def get(self, request, id):
         data=self.get_object(id)
         if not data:
-            return Response({"message":"No data found"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"message":"Category data data found"}, status=status.HTTP_404_NOT_FOUND)
         serializer=CategorySerializer(data)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, id):
+        data=self.get_object(id)
+        if not data:
+            return Response({"message":"Category data data found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer=CategorySerializer(data)
+        return Response({"message":"Category deleted successfully"}, status=status.HTTP_200_OK)
+    
+    def put(self, request, id):
+        instance=self.get_object(id=id)
+        if not instance:
+            return Response({"message":"Not category data found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer=CategorySerializer(instance=instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_NOT_FOUND)
+
+class MenuApiIdView(APIView):
+    def get_object(self, id):
+        try:
+            data=MenuModel.objects.get(id=id)
+            return data
+        except MenuModel.DoesNotExist:
+            return None
+
+    def get(self, request, id):
+        menu_obj=self.get_object(id)
+        if not menu_obj:
+            return Response({"message":"Menu data not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer=MenuSerializer(menu_obj)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def delete(self, request, id):
+        menu_obj=self.get_object(id)
+        if not menu_obj:
+            return Response({"message":"Menu data not found"}, status=status.HTTP_404_NOT_FOUND)
+        menu_obj.delete()
+        return Response({"message":"Menu item deleted successfully"}, status=status.HTTP_200_OK)
+    
+    def put(self, request, id):
+        menu_obj=self.get_object(id)
+        if not menu_obj:
+            return Response({"message":"Menu data not found"}, status=status.HTTP_404_NOT_FOUND)
+        serializer=MenuSerializer(instance=menu_obj, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class CategoryApiView(APIView):
     def get(self, request):
